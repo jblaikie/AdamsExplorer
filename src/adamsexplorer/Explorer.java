@@ -26,28 +26,33 @@ public class Explorer {
      * Move forward. If cannot forward, stay at the current point.
      */
     public void forward(){
-        throw new UnsupportedOperationException("incomplete");
+    	Point[] anb = pt.getNeighbors();
+        if(anb[dir] !=null)
+        	pt=anb[dir];
     }
     
     /**
      * Move backward and reverse its current direction. If cannot move, stay at the current point.
      */
     public void backward(){
-        throw new UnsupportedOperationException("incomplete");
+        dir = (dir+2)%4;
+        Point[] anb = pt.getNeighbors();
+        if(anb[dir] !=null)
+        	pt=anb[dir];
     }
     
     /**
      * Rotate clock-wise for 90 degrees.
      */
     public void rotateRight(){
-         throw new UnsupportedOperationException("incomplete");
+         dir = (dir+3)%4;
     }
     
     /**
      * Rotate 90 degrees anti-clockwise
      */
     public void rotateLeft(){
-       throw new UnsupportedOperationException("incomplete");
+       dir = (dir+1)%4;
     }
     
     /**
@@ -64,7 +69,9 @@ public class Explorer {
      * @param v 
      */
     public void setDirection(int v){
-        throw new UnsupportedOperationException("incomplete");
+    	if(v<0||v>3)
+    		return;
+    	dir=v;
     }
     
     /**

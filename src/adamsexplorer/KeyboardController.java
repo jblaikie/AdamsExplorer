@@ -42,6 +42,36 @@ public class KeyboardController implements IController {
      */
     public void handleKey(KEY key) {
         Explorer ex = map.getExplorer();
-    }
+        Point pt = ex.getPoint();
+        Point[] nb = pt.getNeighbors();
+        int dir = ex.getDirection();
+        switch(key){
+        case UP:
+        	//pt=nb[dir];
+        	ex.forward();
+                map.updateAll();
+        	break;
+        case DOWN:
+        	//pt=nb[Point.SOUTH];
+        	ex.backward();
+                map.updateAll();
+        	break;
+        case LEFT:
+        	//pt =nb[Point.WEST];
+        	ex.rotateLeft();
+                map.updateAll();
+        	break;
+        case RIGHT:
+        	//pt=nb[Point.EAST];
+        	ex.rotateRight();
+                map.updateAll();
+        	break;
+    	default:
+    		break;
+		
+		//if(pt!=null)
+			//ex.setPoint(pt);
+    	
+    }}
 
 }

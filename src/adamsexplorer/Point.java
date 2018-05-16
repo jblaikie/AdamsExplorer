@@ -32,6 +32,11 @@ public class Point {
      * @param pics 
      */
     public void set(int x, int y, Point [] neighbors, String [] pics){
-        throw new UnsupportedOperationException("incomplete");
+        this.x=x; this.y=y; this.arrNeighbors=neighbors; this.arrPics=pics;
+    }
+    
+    public Point[] getNeighbors()
+    {
+    	return arrNeighbors;
     }
 }

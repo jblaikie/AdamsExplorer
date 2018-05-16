@@ -29,7 +29,7 @@ public class MouseController implements IController {
      */
     @Override
     public void update() {
-        throw new UnsupportedOperationException("incomplete");
+        view.draw(map);
     }
 
     /**

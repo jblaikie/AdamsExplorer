@@ -25,7 +25,13 @@ import javafx.stage.Stage;
  */
 public class AdamsExplorer extends Application {
 
-   
+   protected VRView vv;
+    protected KeyboardController kc;
+    protected Map map;
+    protected MouseController mc;
+    protected MapView mv;
+    
+
 
     /**
      * Creates one ImageView for VRView and one Canvas for MapView.
@@ -37,7 +43,67 @@ public class AdamsExplorer extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        throw new UnsupportedOperationException("incomplete");
+        GridPane gp = new GridPane();
+        ImageView iv = new ImageView();
+        gp.add(iv, 0, 0);
+        Canvas cvs = new Canvas();
+        gp.add(cvs, 1, 0);
+        cvs.setWidth(400);
+        cvs.setHeight(600);
+        
+
+        Scene scene = new Scene(gp, 800, 800);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            public void handle(KeyEvent ke) {
+                KeyCode cc = ke.getCode();
+                switch (cc) {
+                    case UP:
+                        kc.handleKey(KeyboardController.KEY.UP);
+                        break;
+                    case DOWN:
+                        kc.handleKey(KeyboardController.KEY.DOWN);
+                        break;
+                    case LEFT:
+                        kc.handleKey(KeyboardController.KEY.LEFT);
+                        break;
+                    case RIGHT:
+                        kc.handleKey(KeyboardController.KEY.RIGHT);
+                        break;
+
+                }
+            }
+        });
+        
+         this.map = new Map();
+        map.loadFromFile("null");
+        this.vv = new VRView(iv);
+        this.kc = new KeyboardController(map, vv);
+        map.register(kc);
+
+        this.mv = new MapView(cvs);
+        this.mc = new MouseController(map, mv);
+        map.register(this.mc);
+        
+        
+        cvs.setOnMouseClicked(
+                new EventHandler<MouseEvent>() {
+            
+
+            @Override
+            public void handle(MouseEvent event) {
+                double x = event.getX();
+                double y = event.getY();
+                mc.handleMouse(x, y);
+            }
+        }
+        );
+        
+        
+         primaryStage.setTitle("Adams Explorer");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        this.map.updateAll();
     }
 
     /**
